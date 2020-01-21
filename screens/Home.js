@@ -34,27 +34,27 @@ export default class Home extends Component {
   }
 
   componentDidMount() {
-    axios.get('http://192.168.1.54:7000/dumbtick/categories').then(res => {
+    axios.get('http://192.168.1.13:7000/dumbtick/categories').then(res => {
       console.log(res.data);
       this.setState({categories: res.data});
     });
 
-    axios.get('http://192.168.1.54:7000/dumbtick/eventsbytoday').then(res => {
+    axios.get('http://192.168.1.13:7000/dumbtick/eventsbytoday').then(res => {
       console.log(res.data);
       this.setState({eventsbt: res.data});
     });
 
-    axios.get('http://192.168.1.54:7000/dumbtick/eventsupcoming').then(res => {
+    axios.get('http://192.168.1.13:7000/dumbtick/eventsupcoming').then(res => {
       console.log(res.data);
       this.setState({eventsuc: res.data});
     });
   }
 
   handleCategory = ({item}) => {
-    console.log({id:item.id})
+    console.log({id: item.id});
     return (
       <Button
-        onPress={this.handlePress(item.id)}
+        onPress={this.handlePressCategory(item.id)}
         block
         style={{
           backgroundColor: 'orange',
@@ -65,12 +65,21 @@ export default class Home extends Component {
         <Text style={{color: 'white', fontSize: 10}}>{item.name}</Text>
       </Button>
     );
-  }
+  };
 
-  handlePress = value => () => {
-    console.log({id:value})
-    this.props.navigation.navigate('CategoryEvents', {id: value})
-  }
+  handlePressCategory = value => () => {
+    console.log({id: value});
+    this.props.navigation.navigate('CategoryEvents', {
+      id: value,
+    });
+  };
+
+  handlePressEvents = value => () => {
+    console.log({id: value});
+    this.props.navigation.navigate('EventDetail', {
+      id: value,
+    });
+  };
 
   render() {
     const {categories, eventsbt, eventsuc} = this.state;
@@ -133,7 +142,11 @@ export default class Home extends Component {
                               source={{
                                 uri: item.img,
                               }}
-                              style={{height: 200, width: 315, flex: 1}}
+                              style={{
+                                height: 200,
+                                width: 315,
+                                flex: 1,
+                              }}
                             />
                             <Body>
                               <Text style={{fontSize: 22}}>{item.title}</Text>
@@ -145,6 +158,9 @@ export default class Home extends Component {
                           <Left>
                             <Text note>Rp{item.price},-</Text>
                           </Left>
+                          <Button bordered style={{borderColor: 'orange'}} onPress={this.handlePressEvents(item.id)}>
+                            <Text style={{color: 'orange'}}>See More...</Text>
+                          </Button>
                           <Right>
                             <Icon name="heart" />
                           </Right>
@@ -187,7 +203,11 @@ export default class Home extends Component {
                               source={{
                                 uri: item.img,
                               }}
-                              style={{height: 200, width: 315, flex: 1}}
+                              style={{
+                                height: 200,
+                                width: 315,
+                                flex: 1,
+                              }}
                             />
                             <Body>
                               <Text style={{fontSize: 22}}>{item.title}</Text>
@@ -199,6 +219,9 @@ export default class Home extends Component {
                           <Left>
                             <Text note>Rp{item.price},-</Text>
                           </Left>
+                          <Button bordered style={{borderColor: 'orange'}} onPress={this.handlePressEvents(item.id)}>
+                            <Text style={{color: 'orange'}}>See More...</Text>
+                          </Button>
                           <Right>
                             <Icon name="heart" />
                           </Right>

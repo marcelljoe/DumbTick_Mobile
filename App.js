@@ -7,6 +7,7 @@ import { createStackNavigator } from 'react-navigation-stack';
 
 import Home from './screens/Home';
 import CategoryEvents from './screens/CategoryEvents';
+import EventDetail from './screens/EventDetail';
 
 
 const AppNavigator = createStackNavigator({
@@ -15,7 +16,10 @@ const AppNavigator = createStackNavigator({
   },
   CategoryEvents: {
     screen: CategoryEvents
-  }
+  },
+  EventDetail: {
+    screen: EventDetail
+  },
 }, {
   headerMode: 'none',
   initialRouteName: 'Home'

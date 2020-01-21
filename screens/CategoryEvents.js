@@ -32,12 +32,19 @@ export default class CategoryEvents extends Component {
       const {navigation} = this.props;
       const id  = JSON.stringify(navigation.getParam('id','default'));
       console.log(id);
-      axios.get(`http://192.168.1.54:7000/dumbtick/category/${id}/events`).then(res => {
+      axios.get(`http://192.168.1.13:7000/dumbtick/category/${id}/events`).then(res => {
         console.log(res.data);
         this.setState({ eventse: res.data });
       });
     }
 
+
+    handlePressEvents = value => () => {
+    console.log({id: value});
+    this.props.navigation.navigate('EventDetail', {
+      id: value,
+    });
+  };
 
   render() {
       const {eventse} = this.state;
@@ -65,7 +72,7 @@ export default class CategoryEvents extends Component {
                   let date = moment(checkDate).format('DD MMM YYYY');
                   return (
                     <Card style={{flex: 0, width: 350}}>
-                      <CardItem>
+                      <CardItem onPress={this.handlePressEvents(item.id)}>
                         <Body>
                           <Image
                             source={{
